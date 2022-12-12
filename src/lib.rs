@@ -39,6 +39,7 @@ use std::cell::{Cell, UnsafeCell};
 use std::ops::{Deref, DerefMut};
 
 /// A clone of the standard library's `RefCell` type.
+#[derive(Debug)]
 pub struct RefCell<T: ?Sized> {
     borrow: BorrowFlag,
     value: UnsafeCell<T>,
