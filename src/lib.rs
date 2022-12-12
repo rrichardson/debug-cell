@@ -64,6 +64,7 @@ pub enum BorrowState {
 
 // Values [1, MAX-1] represent the number of `Ref` active
 // (will not outgrow its range since `usize` is the size of the address space)
+#[derive(Debug)]
 struct BorrowFlag {
     flag: Cell<usize>,
 
