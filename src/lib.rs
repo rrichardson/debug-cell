@@ -89,6 +89,13 @@ impl<T> RefCell<T> {
         debug_assert!(self.borrow.flag.get() == UNUSED);
         unsafe { self.value.into_inner() }
     }
+
+    /// Replace the contents of this RefCell with another
+    #[inline]
+    #[track_caller]
+    pub fn replace(&self, t: T) -> T {
+        std::mem::replace(&mut *self.borrow_mut(), t)
+    }
 }
 
 impl<T: ?Sized> RefCell<T> {
