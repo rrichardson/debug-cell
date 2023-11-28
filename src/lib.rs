@@ -265,6 +265,15 @@ pub struct Ref<'b, T: ?Sized + 'b> {
 }
 
 
+impl<'a, T> std::fmt::Debug for Ref<'a, T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Ref")
+            .field("_value", &"T")
+            .field("_borrow", &"BorrowRef")
+            .finish()
+    }
+}
+
 impl<'b, T: ?Sized> Deref for Ref<'b, T> {
     type Target = T;
     fn deref(&self) -> &T {
@@ -274,6 +283,14 @@ impl<'b, T: ?Sized> Deref for Ref<'b, T> {
 
 struct BorrowRefMut<'b> {
     borrow: &'b BorrowFlag,
+}
+
+impl<'a> std::fmt::Debug for BorrowRefMut<'a> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Ref")
+            .field("borrow", &"BorrowFlag")
+            .finish()
+    }
 }
 
 impl<'b> BorrowRefMut<'b> {
@@ -304,6 +321,14 @@ pub struct RefMut<'b, T: ?Sized + 'b> {
     _borrow: BorrowRefMut<'b>,
 }
 
+impl<'a, T> std::fmt::Debug for RefMut<'a, T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Ref")
+            .field("_value", &"&mut T",)
+            .field("_borrow", &"BorrowRefMut")
+            .finish()
+    }
+}
 
 impl<'b, T: ?Sized> Deref for RefMut<'b, T> {
     type Target = T;
